@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class DoorDestroy : MonoBehaviour
 {
+    
+    /// <summary>
+    /// Simple battering script
+    /// if the lifes = 0 break the door enable the other thing and show particles
+    /// </summary>
     //Welcome to the battering ram script
     public bool antispamTimer = true;
     [Header("Enter tag here of how it will be destroyed")]
@@ -15,6 +20,8 @@ public class DoorDestroy : MonoBehaviour
     public GameObject replacement;
     [Header("Health of the door")]
     public int DoorHealth;
+
+    public ParticleSystem particle;
 
     private void OnCollisionExit(Collision other)
     {
@@ -41,6 +48,7 @@ public class DoorDestroy : MonoBehaviour
         {
             replacement.SetActive(true);
         }
+        particle.Play();
         Destroy(gameObject);
     }
 
