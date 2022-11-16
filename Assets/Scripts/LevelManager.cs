@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
     public int level;
     public bool isDead;
 
+    public GameObject hitParticle;
+
     [Header("PlayerLifes")]
     //todo makes this more advanced looking
     public GameObject life1, life2, life3; 
@@ -19,7 +21,8 @@ public class LevelManager : MonoBehaviour
     {
         if(lifes == 0)
             return;
-        
+        hitParticle.GetComponent<ParticleSystem>().Play();
+        AudioManager.instance.Play("PlayerHit");
         lifes -= 1;
         switch (lifes)
         {

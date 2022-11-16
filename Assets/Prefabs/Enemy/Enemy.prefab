@@ -6508,7 +6508,6 @@ GameObject:
   - component: {fileID: 5663082543157749659}
   - component: {fileID: 9202433589589211417}
   - component: {fileID: 8350296807845472340}
-  - component: {fileID: 7112673960370468480}
   - component: {fileID: 7060145164041688527}
   - component: {fileID: 8943405032878314788}
   - component: {fileID: 3066830963452602403}
@@ -6639,20 +6638,6 @@ MonoBehaviour:
   onRespawn:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7112673960370468480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7792437257379968217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e55478be3af0b24c9edb2561f67dd54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oddsHigh: 0.9
-  oddsLow: 1.1
 --- !u!114 &7060145164041688527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6665,16 +6650,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b758779d2e58ef242a27bb9d709894b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 7112673960370468480}
   state: 0
   agent: {fileID: 6312384118459076154}
   speed: 2.5
   walkRadius: 4.5
+  oddsHigh: 0.9
+  oddsLow: 1.1
+  fireRateMin: 1.29
+  fireRateMax: 1.7
+  AmmoCount: 0
   Blood: {fileID: 4427968000128731424}
   Player: {fileID: 0}
-  fireRateMin: 0.5
-  fireRateMax: 1
-  AmmoCount: 0
+  LevelManager: {fileID: 0}
   ani: {fileID: 5088121805753248821}
 --- !u!65 &8943405032878314788
 BoxCollider:

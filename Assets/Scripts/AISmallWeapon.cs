@@ -16,14 +16,8 @@ public class AISmallWeapon : MonoBehaviour
         //Simple RayCastShooting Script with hopefully cover working;
         public void Shoot()
         {
-            Ray ray = new Ray(transform.position, transform.forward);
-            RaycastHit hitData;
-            if (Physics.Raycast(ray, out hitData, 50f))
-            {
-                Debug.Log(hitData.transform.name);
-            
-                if (hitData.transform.gameObject.CompareTag("Player"))
-                {
+
+                    AudioManager.instance.Play("Shot");
                     var i =  Random.Range(oddsLow, oddsHigh);
                     if (i >= 1)
                     { 
@@ -34,7 +28,22 @@ public class AISmallWeapon : MonoBehaviour
                     {
                         Debug.Log("Missed");
                     }
-                }
-            }
+            
+                    /*Ray ray = new Ray(transform.position, transform.forward);
+                    RaycastHit hitData;
+                    if (Physics.Raycast(ray, out hitData, 50f))
+                    {
+                        Debug.Log(hitData.transform.name);
+
+                        if (hitData.transform.gameObject.CompareTag("Player"))
+                        {
+                            ani.SetBool("ReadyArm", true);
+                            if (!(Time.time > NextShootTime))
+                                return;
+                            Weapon.Shoot();
+                            NextShootTime = Time.time + Random.Range(fireRateMin, fireRateMax);
+                        }
+                    }*/
+                    
         }
 }

@@ -20,21 +20,27 @@ public class EnemyAI : MonoBehaviour
     }
     //AI STUFF
     [Header("AI Stuff")]
-    public AISmallWeapon Weapon;
     public State state;
     public NavMeshAgent agent;
     [Range(0, 100)] public float speed;
     [Range(0, 100)] public float walkRadius;
+
+    [Header("Random Number Generator 1 = hit")]
+    public float oddsHigh;
+    public float oddsLow;
+
+    
+    [Header("Shooting rate and Ammo")]
+    [Range(0,2)] public float fireRateMin;
+    [Range(0,5)] public float fireRateMax;
+    public int AmmoCount;
+    private float NextShootTime;
+    
     
     [Header("Other Enemy Stuff")]
     public ParticleSystem Blood;
     public Transform Player;
-    
-    [Header("Shooting stuff")]
-    private float NextShootTime;
-    [Range(0,20)] public float fireRateMin;
-    [Range(0,30)] public float fireRateMax;
-    public int AmmoCount;
+    public GameObject LevelManager;
 
     [Header("Animation Stuff")] 
     public Animator ani;
@@ -73,7 +79,7 @@ public class EnemyAI : MonoBehaviour
         }
 
     }
-
+    //The AI will try to find a random spot and see if he can go there if yes goes there
     private Vector3 RandomNavMeshLocation()
     {
         Vector3 finalPosistion = Vector3.zero;
@@ -86,17 +92,37 @@ public class EnemyAI : MonoBehaviour
 
         return finalPosistion;
     }
-    //Attack the player and play the sound.
+    //Attack the player and play the sound then in the shoot function there is a random number generator to see if the AI hits the player.
     private void AttackPlayer()
     {
         ani.SetBool("ReadyArm", true);
         
-        if (!(Time.time > NextShootTime))
-            return;
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hitData;
+        if (Physics.Raycast(ray, out hitData, 50f))
+        {
+            if (!(Time.time > NextShootTime))
+                return;
+            Shoot();
+            NextShootTime = Time.time + Random.Range(fireRateMin, fireRateMax);
+        }
+    }
+
+    public void Shoot()
+    {
         
         AudioManager.instance.Play("Shot");
-        Weapon.Shoot();
-        NextShootTime = Time.time + Random.Range(fireRateMin, fireRateMax);
+        var i =  Random.Range(oddsLow, oddsHigh);
+        if (i >= 1)
+        { 
+            Debug.Log("I hit the player yay");
+            LevelManager.GetComponent<LevelManager>().LoseLife();
+        }
+        else
+        {
+            Debug.Log("Missed");
+        }
+
     }
 
     //If player is in the trigger aim at him and change the state to ATTACKING
